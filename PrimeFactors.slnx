@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PrimeFactors.csproj" />
+  <Project Path="PrimeFactors.Tests/PrimeFactors.Tests.csproj" />
+</Solution>
