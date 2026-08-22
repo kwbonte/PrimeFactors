@@ -1,4 +1,4 @@
-using PrimeFactors;
+using PrimeFactors.Core;
 
 long? number = ReadPositiveInteger();
 

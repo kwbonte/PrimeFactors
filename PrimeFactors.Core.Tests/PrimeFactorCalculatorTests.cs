@@ -1,10 +1,16 @@
-using PrimeFactors;
+using PrimeFactors.Core;
 using Xunit;
 
-namespace PrimeFactors.Tests;
+namespace PrimeFactors.Core.Tests;
 
 public class PrimeFactorCalculatorTests
 {
+    [Fact]
+    public void CalculatesFactorsOf1()
+    {
+        Assert.Empty(PrimeFactorCalculator.Calculate(1));
+    }
+
     [Fact]
     public void CalculatesFactorsOf2()
     {

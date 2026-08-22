@@ -1,4 +1,4 @@
-namespace PrimeFactors;
+namespace PrimeFactors.Core;
 
 public static class PrimeFactorCalculator
 {
