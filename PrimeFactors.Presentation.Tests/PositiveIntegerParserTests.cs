@@ -1,3 +1,4 @@
+using FluentAssertions;
 using PrimeFactors.Presentation;
 using Xunit;
 
@@ -8,6 +9,13 @@ public class PositiveIntegerParserTests
     [Fact]
     public void ThrowsInvalidNumericInputExceptionForInvalidInput()
     {
-        Assert.Throws<InvalidNumericInputException>(() => PositiveIntegerParser.Parse("invalid"));
+        // Arrange
+        const string input = "invalid";
+
+        // Act
+        Action act = () => PositiveIntegerParser.Parse(input);
+
+        // Assert
+        act.Should().Throw<InvalidNumericInputException>();
     }
 }
