@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="PrimeFactors.csproj" />
-  <Project Path="PrimeFactors.Tests/PrimeFactors.Tests.csproj" />
+  <Project Path="PrimeFactors.Console/PrimeFactors.Console.csproj" />
+  <Project Path="PrimeFactors.Core/PrimeFactors.Core.csproj" />
+  <Project Path="PrimeFactors.Core.Tests/PrimeFactors.Core.Tests.csproj" />
 </Solution>
