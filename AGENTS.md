@@ -51,8 +51,9 @@ the real terminal.
 Tests use xUnit and belong in **PrimeFactors.Core.Tests** or
 **PrimeFactors.Presentation.Tests**. Core tests should reference and exercise Core
 directly. Presentation tests should use in-memory readers and writers instead of the real
-terminal. Name test classes after the subject and give test methods behavior-focused names
-such as **CalculatesFactorsOf60**.
+terminal. Use FluentAssertions for assertions and structure tests with distinct Arrange,
+Act, and Assert sections. Name test classes after the subject and give test methods
+behavior-focused names such as **CalculatesFactorsOf60**.
 
 Add tests for normal inputs, repeated factors, primes, and relevant boundary cases when
 changing calculation logic. No coverage threshold is configured, but new behavior should

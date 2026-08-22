@@ -1,3 +1,4 @@
+using FluentAssertions;
 using PrimeFactors.Presentation;
 using Xunit;
 
@@ -8,64 +9,73 @@ public class PrimeFactorsApplicationTests
     [Fact]
     public void DisplaysPrimeFactorsForValidInput()
     {
+        // Arrange
         var input = new StringReader("60");
         var output = new StringWriter();
         var application = new PrimeFactorsApplication(input, output);
 
+        // Act
         application.Run();
 
-        Assert.Equal(
+        // Assert
+        output.ToString().Should().Be(
             $"Enter a positive integer: Prime factors: 2 × 2 × 3 × 5{Environment.NewLine}" +
-            "Enter a positive integer: ",
-            output.ToString());
+            "Enter a positive integer: ");
     }
 
     [Fact]
     public void DisplaysErrorAndContinuesAfterInvalidInput()
     {
+        // Arrange
         var input = new StringReader($"invalid{Environment.NewLine}12");
         var output = new StringWriter();
         var application = new PrimeFactorsApplication(input, output);
 
+        // Act
         application.Run();
 
-        Assert.Equal(
+        // Assert
+        output.ToString().Should().Be(
             "Enter a positive integer: " +
             $"Invalid input. Please enter a positive integer.{Environment.NewLine}" +
             "Enter a positive integer: " +
             $"Prime factors: 2 × 2 × 3{Environment.NewLine}" +
-            "Enter a positive integer: ",
-            output.ToString());
+            "Enter a positive integer: ");
     }
 
     [Fact]
     public void StopsWhenUserEntersQuit()
     {
+        // Arrange
         var input = new StringReader("  QUIT  ");
         var output = new StringWriter();
         var application = new PrimeFactorsApplication(input, output);
 
+        // Act
         application.Run();
 
-        Assert.Equal("Enter a positive integer: ", output.ToString());
+        // Assert
+        output.ToString().Should().Be("Enter a positive integer: ");
     }
 
     [Fact]
     public void ProcessesMultipleNumbersUntilQuit()
     {
+        // Arrange
         var input = new StringReader(
             $"4{Environment.NewLine}97{Environment.NewLine}quit{Environment.NewLine}");
         var output = new StringWriter();
         var application = new PrimeFactorsApplication(input, output);
 
+        // Act
         application.Run();
 
-        Assert.Equal(
+        // Assert
+        output.ToString().Should().Be(
             "Enter a positive integer: " +
             $"Prime factors: 2 × 2{Environment.NewLine}" +
             "Enter a positive integer: " +
             $"Prime factors: 97{Environment.NewLine}" +
-            "Enter a positive integer: ",
-            output.ToString());
+            "Enter a positive integer: ");
     }
 }
