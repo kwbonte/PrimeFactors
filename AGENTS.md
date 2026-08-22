@@ -26,19 +26,24 @@ Run commands from the repository root:
 
     dotnet build PrimeFactors.slnx
     dotnet test PrimeFactors.slnx
+    dotnet tool restore
+    dotnet test PrimeFactors.slnx --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+    dotnet reportgenerator "-reports:PrimeFactors.*.Tests/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:Html;TextSummary"
     dotnet run --project PrimeFactors.Console/PrimeFactors.Console.csproj
     dotnet format PrimeFactors.slnx
-    dotnet tool restore
     cd PrimeFactors.Core.Tests
     dotnet stryker --break-at 100 --threshold-low 100 --threshold-high 100 --skip-version-check
     cd ..
 
-The build command compiles all five projects. The test command builds and runs all xUnit
-tests. The run command starts the interactive console application. Enter **quit** to end
-it. The format command applies standard .NET formatting rules; review its changes before
-committing. Restore repository-local tools before running Stryker from the Core test
-project. The 100% break threshold makes the command fail if any executable Core mutation
-survives.
+The build command compiles all five projects. The standard test command builds and runs
+all xUnit tests. The coverage test command prints per-project metrics and writes Cobertura
+files; the following ReportGenerator command combines them into
+**coverage/Summary.txt** and an HTML report at **coverage/index.html**. The run command
+starts the interactive console application. Enter **quit** to end it. The format command
+applies standard .NET formatting rules; review its changes before committing. Restore
+repository-local tools before running coverage reporting or Stryker. Run Stryker from the
+Core test project; the 100% break threshold makes the command fail if any executable Core
+mutation survives.
 
 ## Coding Style & Naming Conventions
 

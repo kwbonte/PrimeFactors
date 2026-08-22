@@ -26,6 +26,7 @@ x86/
 [Tt]est[Rr]esult*/
 coverage/
 StrykerOutput/
+coverage.*
 *.coverage
 *.coveragexml
 
