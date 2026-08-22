@@ -78,4 +78,36 @@ public class PrimeFactorsApplicationTests
             $"Prime factors: 97{Environment.NewLine}" +
             "Enter a positive integer: ");
     }
+
+    [Fact]
+    public void StopsAtEndOfInput()
+    {
+        // Arrange
+        var input = new StringReader(string.Empty);
+        var output = new StringWriter();
+        var application = new PrimeFactorsApplication(input, output);
+
+        // Act
+        application.Run();
+
+        // Assert
+        output.ToString().Should().Be("Enter a positive integer: ");
+    }
+
+    [Fact]
+    public void DisplaysMessageWhenNumberHasNoPrimeFactors()
+    {
+        // Arrange
+        var input = new StringReader("1");
+        var output = new StringWriter();
+        var application = new PrimeFactorsApplication(input, output);
+
+        // Act
+        application.Run();
+
+        // Assert
+        output.ToString().Should().Be(
+            $"Enter a positive integer: 1 has no prime factors.{Environment.NewLine}" +
+            "Enter a positive integer: ");
+    }
 }

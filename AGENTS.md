@@ -28,11 +28,17 @@ Run commands from the repository root:
     dotnet test PrimeFactors.slnx
     dotnet run --project PrimeFactors.Console/PrimeFactors.Console.csproj
     dotnet format PrimeFactors.slnx
+    dotnet tool restore
+    cd PrimeFactors.Core.Tests
+    dotnet stryker --break-at 100 --threshold-low 100 --threshold-high 100 --skip-version-check
+    cd ..
 
 The build command compiles all five projects. The test command builds and runs all xUnit
 tests. The run command starts the interactive console application. Enter **quit** to end
 it. The format command applies standard .NET formatting rules; review its changes before
-committing.
+committing. Restore repository-local tools before running Stryker from the Core test
+project. The 100% break threshold makes the command fail if any executable Core mutation
+survives.
 
 ## Coding Style & Naming Conventions
 
@@ -57,7 +63,10 @@ behavior-focused names such as **CalculatesFactorsOf60**.
 
 Add tests for normal inputs, repeated factors, primes, and relevant boundary cases when
 changing calculation logic. No coverage threshold is configured, but new behavior should
-have focused tests. Always run the solution test command before submitting changes.
+have focused tests. Prefer tests that distinguish the intended implementation from likely
+mutations, especially changed boundary and comparison operators. Always run the solution
+test command before submitting changes; run mutation tests when hardening calculation
+logic or its tests.
 
 ## Commit & Pull Request Guidelines
 
