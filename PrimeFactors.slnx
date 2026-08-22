@@ -2,4 +2,6 @@
   <Project Path="PrimeFactors.Console/PrimeFactors.Console.csproj" />
   <Project Path="PrimeFactors.Core/PrimeFactors.Core.csproj" />
   <Project Path="PrimeFactors.Core.Tests/PrimeFactors.Core.Tests.csproj" />
+  <Project Path="PrimeFactors.Presentation/PrimeFactors.Presentation.csproj" />
+  <Project Path="PrimeFactors.Presentation.Tests/PrimeFactors.Presentation.Tests.csproj" />
 </Solution>

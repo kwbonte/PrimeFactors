@@ -2,21 +2,23 @@
 
 ## Project Structure & Module Organization
 
-This repository contains a small .NET 10 application split into a Core class library,
-a console front end, and an xUnit test project.
+This repository contains a small .NET 10 application split into Core, Presentation, and
+Console projects, with xUnit test projects for Core and Presentation.
 
 - **PrimeFactors.Core/**: prime-factor domain and business logic.
 - **PrimeFactors.Core/PrimeFactorCalculator.cs**: prime-factor calculation logic.
-- **PrimeFactors.Console/**: console input, UI validation, and output.
-- **PrimeFactors.Console/Program.cs**: interactive console application entry point.
+- **PrimeFactors.Presentation/**: testable application flow, input parsing, and display.
+- **PrimeFactors.Console/**: executable composition root for terminal input and output.
+- **PrimeFactors.Console/Program.cs**: wires the real terminal to Presentation.
 - **PrimeFactors.Core.Tests/**: xUnit tests that exercise Core directly.
+- **PrimeFactors.Presentation.Tests/**: xUnit tests using in-memory input and output.
 - **PrimeFactors.slnx**: solution entry point for building and testing all projects.
 
-Core must not reference Console or depend on console I/O. Console may reference Core and
-should remain responsible only for user input, UI-appropriate validation, calling Core,
-and displaying results. Do not add interfaces or additional architecture layers unless
-they solve an actual dependency problem. Build artifacts in **bin/** and **obj/** are
-generated and ignored by Git.
+Core must not reference Presentation or Console and must not depend on console I/O.
+Presentation may reference Core but must not call **System.Console** directly. Console
+references Presentation and keeps **Program.cs** limited to composition. Do not add
+interfaces or additional architecture layers unless they solve an actual dependency
+problem. Build artifacts in **bin/** and **obj/** are generated and ignored by Git.
 
 ## Build, Test, and Development Commands
 
@@ -27,9 +29,10 @@ Run commands from the repository root:
     dotnet run --project PrimeFactors.Console/PrimeFactors.Console.csproj
     dotnet format PrimeFactors.slnx
 
-The build command compiles all three projects. The test command builds and runs all xUnit
-tests. The run command starts the interactive console application. The format command
-applies standard .NET formatting rules; review its changes before committing.
+The build command compiles all five projects. The test command builds and runs all xUnit
+tests. The run command starts the interactive console application. Enter **quit** to end
+it. The format command applies standard .NET formatting rules; review its changes before
+committing.
 
 ## Coding Style & Naming Conventions
 
@@ -39,15 +42,17 @@ respect nullable reference type warnings. Prefer explicit, descriptive names suc
 remaining and divisor.
 
 Keep methods focused and avoid unnecessary abstractions. Place reusable calculation
-behavior in **PrimeFactors.Core**; keep user prompts, UI validation, and display formatting
-in **PrimeFactors.Console**.
+behavior in **PrimeFactors.Core** and application flow, parsing, and display formatting in
+**PrimeFactors.Presentation**. Keep **PrimeFactors.Console** limited to composition with
+the real terminal.
 
 ## Testing Guidelines
 
-Tests use xUnit and belong in **PrimeFactors.Core.Tests**. Tests should reference and
-exercise Core directly. Name test classes after the subject, such as
-**PrimeFactorCalculatorTests**, and give test methods behavior-focused names such as
-**CalculatesFactorsOf60**.
+Tests use xUnit and belong in **PrimeFactors.Core.Tests** or
+**PrimeFactors.Presentation.Tests**. Core tests should reference and exercise Core
+directly. Presentation tests should use in-memory readers and writers instead of the real
+terminal. Name test classes after the subject and give test methods behavior-focused names
+such as **CalculatesFactorsOf60**.
 
 Add tests for normal inputs, repeated factors, primes, and relevant boundary cases when
 changing calculation logic. No coverage threshold is configured, but new behavior should
